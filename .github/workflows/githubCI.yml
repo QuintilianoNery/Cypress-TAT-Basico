@@ -29,11 +29,8 @@ jobs:
     # Configurações 
     # Configuração que instala o node
     steps:
-        - name: Setup Node.js
-          uses: actions/setup-node@v2.1.2
-          with:
-            node-version: ${{ matrix.node-version }}
-        - uses: actions/checkout@v2
+        - image: 'cypress/base'
         #comandos necessários para executar a aplicação da mesma forma que no PC
         - run: npm install
         - run: npx cypress run --config video=true --browser chrome --record --key b36526ad-d765-4368-9f32-8675d4acb8cf
+
