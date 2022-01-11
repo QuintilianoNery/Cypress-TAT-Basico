@@ -5,6 +5,8 @@ const nome = faker.name.findName();
 const sobrenome = faker.name.lastName();
 const nomeCompleto = `${nome} ${sobrenome}`;
 const email = faker.internet.email();
+const quantidadeTicket = '2';
+
 
 describe('Tickets', () => {
     beforeEach(() => {
@@ -47,55 +49,158 @@ describe('Tickets', () => {
 
     it('Validando a seleção da quantidade de Tickets', () => {
         // selecionando 2 tickets
+        cy.get('#ticket-quantity')
+            .select('3')
+            .select('4')
+            .select('1')
+            .select(quantidadeTicket)
+    });
+
+
+    it('Validando radio Buttons', () => {
+        cy.get('#vip')
+            .should('not.be.checked')
+            .click()
+            .should('be.checked')
+        cy.get('#general')
+            .should('not.be.checked')
+            .click()
+            .should('be.checked')
+    });
+
+    it('Validando checkboxes', () => {
+        cy.get('#friend')
+            .should('not.be.checked')
+            .click()
+            .should('be.checked')
+        cy.get('#publication')
+            .should('not.be.checked')
+            .click()
+            .should('be.checked')
+        cy.get('#social-media')
+            .should('not.be.checked')
+            .click()
+            .should('be.checked')
     });
 
     it('Resetando o preenchimento dos campos', () => {
+        cy.get('#first-name')
+            .type(nome);
+        cy.get('#last-name')
+            .type(sobrenome);
+        cy.get('#email')
+            .type(email);
+        cy.get('#requests')
+            .type('Carnívoro');
+        cy.get('#signature')
+            .type(nomeCompleto);
+
+        cy.get('#ticket-quantity')
+            .select('3')
+            .select('4')
+            .select('1')
+            .select(quantidadeTicket)
+
+        cy.get('#vip')
+            .should('not.be.checked')
+            .click()
+            .should('be.checked')
+        cy.get('#general')
+            .should('not.be.checked')
+            .click()
+            .should('be.checked')
+
+        cy.get('#friend')
+            .should('not.be.checked')
+            .click()
+            .should('be.checked')
+        cy.get('#publication')
+            .should('not.be.checked')
+            .click()
+            .should('be.checked')
+        cy.get('#social-media')
+            .should('not.be.checked')
+            .click()
+            .should('be.checked')
+
+
+        cy.get('button[type=reset]')
+            .click()
+            .should('have.text', 'Reset')
+
+        cy.get('#first-name')
+            .should('have.text', '')
+    });
+
+    it.skip('Validar título da página tickets', () => {
 
     });
 
-    it('Validar título da página tickets', () => {
 
-    });
-
-    it('Validando radio Buttons', () => {
-
-    });
-
-    it('Validando checkboxes - Selecionar Friend', () => {
-
-    });
-
-
-    it('Validando checkboxes - Selecionar Publication', () => {
-
-    });
-
-    it('Validando checkboxes - Selecionar  Social Media', () => {
-
-    });
-
-    it('Validando checkboxes - intercalar seleção', () => {
+    it('Validando se está na página inicial', () => {
         cy.get('header h1')
             .should('have.text', 'TICKETBOX')
             .should('contain', 'TICKETBOX')
     });
 
-    it('Validar fluxo completo do cadastro Tickets ', () => {
+    it.only('Validar fluxo completo do cadastro Tickets - Incompleto ', () => {
         //Ao preencher nome e spbrenome deve-se popular a frase com o nome completo  
         //Quando preencho todos os campos obrigatórios, o sistema deve habilitar o botão de  confirmação
-        //
-        //
-    });
 
-    it('Preencher o cadastro completo e em seguida resetar', () => {
-        //Se clicar em resetar, o formulário deve ser limpo
-        cy.get('#first-name').type(nome);
-        cy.get('#last-name').type(sobrenome);
+        cy.get('#first-name')
+            .type(nome);
+        cy.get('#last-name')
+            .type(sobrenome);
+        cy.get('#email')
+            .type(email);
+        cy.get('#requests')
+            .type('Carnívoro');
+        cy.get('#signature')
+            .type(nomeCompleto);
+
+        cy.get('#ticket-quantity')
+            .select('3')
+            .select('4')
+            .select('1')
+            .select(quantidadeTicket)
+
+        cy.get('#vip')
+            .should('not.be.checked')
+            .click()
+            .should('be.checked')
+        cy.get('#general')
+            .should('not.be.checked')
+            .click()
+            .should('be.checked')
+
+        cy.get('#friend')
+            .should('not.be.checked')
+            .click()
+            .should('be.checked')
+        cy.get('#publication')
+            .should('not.be.checked')
+            .click()
+            .should('be.checked')
+        cy.get('#social-media')
+            .should('not.be.checked')
+            .click()
+            .should('be.checked')
+
+        cy.get('button[type=submit]')
+            .should('be.disabled')
+        cy.get('#agree')
+            .click()
+            .should('be.checked')
+
         cy.get('.agreement p')
-            .should('contain', `I, ${nomeCompleto}, wish to buy 1 General Admission ticket.`)
+            .should('contain', `I, ${nomeCompleto}, wish to buy ${quantidadeTicket} General Admission tickets.`)
+
+        cy.get('button[type=submit]')
+            .should('not.be.disabled')
+
     });
 
-    it('Validação do título dos campos', () => {
+    it.skip('Validação do título dos campos', () => {
 
     });
 
