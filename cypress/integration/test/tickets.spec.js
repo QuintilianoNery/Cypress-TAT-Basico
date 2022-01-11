@@ -132,10 +132,22 @@ describe('Tickets', () => {
             .should('have.text', '')
     });
 
-    it.skip('Validar título da página tickets', () => {
+    it.only('Preenchendo apenas os campos obrigatórios', () => {
+        const cliente = {
+            nome,
+            sobrenome,
+            email
+        };
 
+        cy.preencherCamposObrigatorios(cliente);
+        cy.get('button[type=submit]')
+            .as('submitButton')
+            .should('not.be.disabled')
+        cy.get('#agree')
+            .uncheck()
+        cy.get('@submitButton')
+            .should('be.disabled')
     });
-
 
     it('Validando se está na página inicial', () => {
         cy.get('header h1')
@@ -143,7 +155,7 @@ describe('Tickets', () => {
             .should('contain', 'TICKETBOX')
     });
 
-    it.only('Validar fluxo completo do cadastro Tickets - Incompleto ', () => {
+    it('Validar fluxo completo do cadastro Tickets - Incompleto ', () => {
         //Ao preencher nome e spbrenome deve-se popular a frase com o nome completo  
         //Quando preencho todos os campos obrigatórios, o sistema deve habilitar o botão de  confirmação
 
@@ -197,11 +209,15 @@ describe('Tickets', () => {
 
         cy.get('button[type=submit]')
             .should('not.be.disabled')
+            .click()
+            .should('')
 
     });
 
     it.skip('Validação do título dos campos', () => {
+    });
 
+    it.skip('Validar título da página tickets', () => {
     });
 
 });

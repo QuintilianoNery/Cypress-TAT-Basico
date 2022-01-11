@@ -23,3 +23,20 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+// var faker = require('faker-br');
+
+// const nome = faker.name.findName();
+// const sobrenome = faker.name.lastName();
+// const nomeCompleto = `${nome} ${sobrenome}`;
+
+Cypress.Commands.add('preencherCamposObrigatorios', cliente => {
+    cy.get('#first-name')
+        .type(cliente.nome);
+    cy.get('#last-name')
+        .type(cliente.sobrenome);
+    cy.get('#email')
+        .type(cliente.email);
+    cy.get('#agree')
+        .check();
+})
