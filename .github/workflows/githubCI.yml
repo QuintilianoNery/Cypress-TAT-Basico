@@ -1,15 +1,15 @@
 # Nome do workflow
 
-name: DesafioQA
+name: TAB
 
 # Comantos de configuração. 
 on:
   # sempre que tiver um envio para origin ele vai executar estes comandos
     # Gatilhos de execuções, podendo agendar apra um determinado horário
   push:
-    branches: [ origin ]
+    branches: [ master ]
   pull_request:
-    branches: [ origin ]
+    branches: [ master ]
 
   # Abilitar workflow manualmente
   workflow_dispatch:
@@ -29,7 +29,11 @@ jobs:
     # Configurações 
     # Configuração que instala o node
     steps:
-        - image: 'cypress/base'
+        - name: Setup Node.js
+          uses: actions/setup-node@v2.1.2
+          with:
+            node-version: ${{ matrix.node-version }}
+        - uses: actions/checkout@v2
         #comandos necessários para executar a aplicação da mesma forma que no PC
         - run: npm install
         - run: npx cypress run --config video=true --browser chrome --record --key b36526ad-d765-4368-9f32-8675d4acb8cf
