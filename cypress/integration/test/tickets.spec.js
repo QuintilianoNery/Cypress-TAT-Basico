@@ -163,6 +163,9 @@ describe('Tickets', () => {
             sobrenome,
             email
         };
+
+        cy.preencherCamposObrigatorios(cliente);
+
         cy.get('#requests')
             .type('Carnívoro');
         cy.get('#signature')
@@ -197,10 +200,7 @@ describe('Tickets', () => {
             .should('be.checked')
 
         cy.get('button[type=submit]')
-            .should('be.disabled')
-        cy.get('#agree')
-            .click()
-            .should('be.checked')
+            .should('not.be.disabled')
 
         cy.get('.agreement p')
             .should('contain', `I, ${nomeCompleto}, wish to buy ${quantidadeTicket} General Admission tickets.`)
@@ -208,7 +208,8 @@ describe('Tickets', () => {
         cy.get('button[type=submit]')
             .should('not.be.disabled')
             .click()
-            .should('')
+            cy.get('.success')
+            .should('contain', 'Ticket(s) successfully ordered.')
 
     });
 

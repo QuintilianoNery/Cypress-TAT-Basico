@@ -38,6 +38,8 @@ Cypress.Commands.add('preencherCamposObrigatorios', cliente => {
     cy.get('#email')
         .type(cliente.email);
     cy.get('#agree')
-        .check();
-        
+        .check()
+        .should('be.checked');
+
 })
+
