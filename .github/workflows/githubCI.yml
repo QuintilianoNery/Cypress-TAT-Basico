@@ -1,0 +1,9 @@
+image: 'cypress/base'
+
+stages:
+  - e2e
+
+end-to-end:
+  - npm install --yes
+  - npm i faker-br --dev
+  - 'npx cypress run --browser chrome'
