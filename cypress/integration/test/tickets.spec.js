@@ -19,12 +19,11 @@ describe('Tickets', () => {
         //digitar email
         //Carnívoro
         //digitar nome completo
-        cy.get('#first-name')
-            .type(nome);
-        cy.get('#last-name')
-            .type(sobrenome);
-        cy.get('#email')
-            .type(email);
+        const cliente = {
+            nome,
+            sobrenome,
+            email
+        };
         cy.get('#requests')
             .type('Carnívoro');
         cy.get('#signature')
@@ -132,7 +131,7 @@ describe('Tickets', () => {
             .should('have.text', '')
     });
 
-    it.only('Preenchendo apenas os campos obrigatórios', () => {
+    it('Preenchendo apenas os campos obrigatórios', () => {
         const cliente = {
             nome,
             sobrenome,
@@ -159,12 +158,11 @@ describe('Tickets', () => {
         //Ao preencher nome e spbrenome deve-se popular a frase com o nome completo  
         //Quando preencho todos os campos obrigatórios, o sistema deve habilitar o botão de  confirmação
 
-        cy.get('#first-name')
-            .type(nome);
-        cy.get('#last-name')
-            .type(sobrenome);
-        cy.get('#email')
-            .type(email);
+        const cliente = {
+            nome,
+            sobrenome,
+            email
+        };
         cy.get('#requests')
             .type('Carnívoro');
         cy.get('#signature')
